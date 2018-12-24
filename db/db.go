@@ -1,8 +1,8 @@
 package db
 
 import (
-	"fmt"
 	"os"
+	"unishare/models"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -11,9 +11,6 @@ import (
 func Connect() *gorm.DB {
 	dbType := os.Getenv("DB_TYPE")
 	dbName := os.Getenv("DB_NAME")
-
-	fmt.Println(dbType)
-	fmt.Println(dbName)
 
 	db, err := gorm.Open(dbType, dbName)
 	if err != nil {
@@ -26,4 +23,6 @@ func Connect() *gorm.DB {
 func CreateTables() {
 	db := Connect()
 	defer db.Close()
+
+	db.AutoMigrate(&models.User{})
 }
