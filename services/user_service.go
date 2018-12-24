@@ -5,6 +5,8 @@ import (
 	"unishare/helpers"
 	"unishare/models"
 	"unishare/repositories"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 func UserCreate(user *models.User) error {
@@ -13,16 +15,17 @@ func UserCreate(user *models.User) error {
 	return repositories.UserInsert(user)
 }
 
-func UserLogin(loginUser *models.LoginUser) error {
+func UserLogin(loginUser *models.LoginUser) (string, error) {
 	user, err := repositories.UserGetByUserName(loginUser.UserName)
 	if err != nil {
-		return err
+		return "", err
 	}
 
 	err = helpers.CheckPassword(user.Password, loginUser.Password)
 	if err != nil {
-		return errors.New("password is not correct")
+		return "", errors.New("password is not correct")
 	}
 
-	return nil
+	token := uuid.Must(uuid.NewV1()).String()
+	return token, nil
 }
