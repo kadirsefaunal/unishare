@@ -13,3 +13,8 @@ type User struct {
 	StudentType   string `json:"studentType" gorm:"size:20"`
 	Type          string `json:"type" gorm:"size:20"` // Student/Instructor
 }
+
+type LoginUser struct {
+	UserName      string `json:"username"`
+	Password      string `json:"password"`
+}
