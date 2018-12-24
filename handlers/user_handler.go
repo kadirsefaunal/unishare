@@ -29,10 +29,10 @@ func UserLogin(c echo.Context) error {
 		panic(err)
 	}
 
-	err := services.UserLogin(loginUser)
+	token, err := services.UserLogin(loginUser)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, token)
 }
