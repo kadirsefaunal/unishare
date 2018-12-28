@@ -21,3 +21,14 @@ func RedisSetUser(user *models.User) string {
 
 	return token
 }
+
+func RedisCheckUser(token string) bool {
+	client := storages.GetRedisClient()
+
+	user, err := client.Get(token).Result()
+	if err != nil {
+		return false
+	}
+
+	return (user != "")
+}
