@@ -25,4 +25,5 @@ func CreateTables() {
 	defer db.Close()
 
 	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.School{})
 }
