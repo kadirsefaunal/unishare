@@ -5,8 +5,6 @@ import (
 	"unishare/helpers"
 	"unishare/models"
 	"unishare/repositories"
-
-	uuid "github.com/satori/go.uuid"
 )
 
 func UserCreate(user *models.User) error {
@@ -26,6 +24,7 @@ func UserLogin(loginUser *models.LoginUser) (string, error) {
 		return "", errors.New("password is not correct")
 	}
 
-	token := uuid.Must(uuid.NewV1()).String()
+	token := RedisSetUser(user)
+
 	return token, nil
 }
