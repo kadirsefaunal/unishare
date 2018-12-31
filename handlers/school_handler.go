@@ -22,3 +22,14 @@ func SchoolCreate(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "{status: true}")
 }
+
+func SchoolDelete(c echo.Context) error {
+	schoolID := c.Param("id")
+
+	err := services.SchoolDelete(schoolID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}
