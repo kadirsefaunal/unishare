@@ -12,9 +12,11 @@ type User struct {
 	Mail          string `json:"mail" gorm:"size:255;UNIQUE"`
 	StudentType   string `json:"studentType" gorm:"size:20"`
 	Type          string `json:"type" gorm:"size:20"` // Student/Instructor
+	School        School `gorm:"foreignkey:SchoolID"`
+	SchoolID      uint   `json:"schoolId"`
 }
 
 type LoginUser struct {
-	UserName      string `json:"username"`
-	Password      string `json:"password"`
+	UserName string `json:"username"`
+	Password string `json:"password"`
 }
