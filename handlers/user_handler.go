@@ -22,3 +22,17 @@ func UserCreate(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "{status: true}")
 }
+
+func UserLogin(c echo.Context) error {
+	loginUser := new(models.LoginUser)
+	if err := c.Bind(loginUser); err != nil {
+		panic(err)
+	}
+
+	token, err := services.UserLogin(loginUser)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, token)
+}
