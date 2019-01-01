@@ -20,3 +20,17 @@ func SchoolDelete(school models.School) error {
 	err := db.Delete(school).Error
 	return err
 }
+
+func SchoolList() (*[]models.School, error) {
+	db := db.Connect()
+	defer db.Close()
+
+	schools := new([]models.School)
+
+	err := db.Find(&schools).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return schools, nil
+}

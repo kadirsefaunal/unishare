@@ -33,3 +33,12 @@ func SchoolDelete(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func SchoolList(c echo.Context) error {
+	schools, err := services.SchoolList()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, schools)
+}
