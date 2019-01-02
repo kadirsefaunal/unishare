@@ -21,3 +21,14 @@ func ClassCreate(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "{status: true}")
 }
+
+func ClassDelete(c echo.Context) error {
+	classID := c.Param("id")
+
+	err := services.ClassDelete(classID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}
