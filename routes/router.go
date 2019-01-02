@@ -21,4 +21,5 @@ func InitRoutes(e *echo.Echo) {
 
 	class := e.Group("/class", middlewares.CheckToken)
 	class.POST("", handlers.ClassCreate).Name = "create-class"
+	class.DELETE("/:id", handlers.ClassDelete).Name = "delete-class"
 }
