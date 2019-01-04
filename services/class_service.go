@@ -21,3 +21,11 @@ func ClassDelete(id string) error {
 	class := models.Class{Model: gorm.Model{ID: uint(classID)}}
 	return repositories.ClassDelete(class)
 }
+
+func ClassGet(id string) (*models.Class, error) {
+	return repositories.ClassGet(id)
+}
+
+func ClassUpdate(class *models.Class) error {
+	return repositories.ClassUpdate(class)
+}

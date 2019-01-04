@@ -32,3 +32,23 @@ func ClassDelete(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func ClassUpdate(c echo.Context) error {
+	classID := c.Param("id")
+
+	class, err := services.ClassGet(classID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	if err := c.Bind(class); err != nil {
+		panic(err)
+	}
+
+	err = services.ClassUpdate(class)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}
