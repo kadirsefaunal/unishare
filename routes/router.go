@@ -18,6 +18,7 @@ func InitRoutes(e *echo.Echo) {
 	school.POST("", handlers.SchoolCreate).Name = "create-school"
 	school.DELETE("/:id", handlers.SchoolDelete).Name = "delete-school"
 	school.GET("", handlers.SchoolList).Name = "list-school"
+	school.GET("/:id", handlers.SchoolGet).Name = "get-school"
 
 	class := e.Group("/class", middlewares.CheckToken)
 	class.POST("", handlers.ClassCreate).Name = "create-class"
