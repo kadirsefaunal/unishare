@@ -34,3 +34,14 @@ func SchoolList() (*[]models.School, error) {
 
 	return schools, nil
 }
+
+func SchoolGet(id string) (*models.School, error) {
+	db := db.Connect()
+	defer db.Close()
+
+	school := new(models.School)
+	err := db.Find(&school, "id = ?", id).Error
+	db.Model(&school).Related(&school.Classes)
+
+	return school, err
+}

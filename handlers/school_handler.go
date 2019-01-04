@@ -42,3 +42,14 @@ func SchoolList(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, schools)
 }
+
+func SchoolGet(c echo.Context) error {
+	schoolID := c.Param("id")
+
+	school, err := services.SchoolGet(schoolID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, school)
+}

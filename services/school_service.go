@@ -26,3 +26,7 @@ func SchoolDelete(id string) error {
 func SchoolList() (*[]models.School, error) {
 	return repositories.SchoolList()
 }
+
+func SchoolGet(id string) (*models.School, error) {
+	return repositories.SchoolGet(id)
+}
