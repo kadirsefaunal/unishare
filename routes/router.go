@@ -24,4 +24,5 @@ func InitRoutes(e *echo.Echo) {
 	class.POST("", handlers.ClassCreate).Name = "create-class"
 	class.DELETE("/:id", handlers.ClassDelete).Name = "delete-class"
 	class.PUT("/:id", handlers.ClassUpdate).Name = "update-class"
+	class.GET("/:id", handlers.ClassGet).Name = "get-class"
 }

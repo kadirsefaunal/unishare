@@ -52,3 +52,14 @@ func ClassUpdate(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func ClassGet(c echo.Context) error {
+	classID := c.Param("id")
+
+	class, err := services.ClassGet(classID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, class)
+}
