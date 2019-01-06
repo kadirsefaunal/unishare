@@ -28,3 +28,7 @@ func UserLogin(loginUser *models.LoginUser) (string, error) {
 
 	return token, nil
 }
+
+func GetCurrentUser(token string) (*models.User, error) {
+	return RedisGetUser(token)
+}
