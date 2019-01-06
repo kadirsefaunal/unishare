@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 	"unishare/helpers"
 	"unishare/models"
@@ -31,4 +32,21 @@ func RedisCheckUser(token string) bool {
 	}
 
 	return (user != "")
+}
+
+func RedisGetUser(token string) (*models.User, error) {
+	client := storages.GetRedisClient()
+
+	cacheUser, err := client.Get(token).Result()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	user := new(models.User)
+
+	if err := json.Unmarshal([]byte(cacheUser), &user); err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
