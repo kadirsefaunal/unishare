@@ -32,4 +32,7 @@ func InitRoutes(e *echo.Echo) {
 	post.PUT("/:id", handlers.PostUpdate).Name = "update-post"
 	post.DELETE("/:id", handlers.PostDelete).Name = "delete-post"
 	post.GET("", handlers.PostList).Name = "list-post"
+
+	answer := e.Group("/answer", middlewares.CheckToken)
+	answer.POST("", handlers.AnswerCreate).Name = "create-answer"
 }
