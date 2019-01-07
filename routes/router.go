@@ -25,4 +25,7 @@ func InitRoutes(e *echo.Echo) {
 	class.DELETE("/:id", handlers.ClassDelete).Name = "delete-class"
 	class.PUT("/:id", handlers.ClassUpdate).Name = "update-class"
 	class.GET("/:id", handlers.ClassGet).Name = "get-class"
+
+	post := e.Group("/post", middlewares.CheckToken)
+	post.POST("", handlers.PostCreate).Name = "create-post"
 }
