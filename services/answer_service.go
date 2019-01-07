@@ -14,3 +14,7 @@ func AnswerInsert(answer *models.Answer, token string) error {
 	answer.User = user
 	return repositories.AnswerInsert(answer)
 }
+
+func AnswerGet(answerID string) (*models.Answer, error) {
+	return repositories.AnswerGet(answerID)
+}

@@ -23,3 +23,14 @@ func AnswerCreate(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "{status: true}")
 }
+
+func AnswerGet(c echo.Context) error {
+	answerID := c.Param("id")
+
+	answer, err := services.AnswerGet(answerID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, answer)
+}
