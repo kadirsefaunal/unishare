@@ -32,3 +32,11 @@ func AnswerList(userID uint) (*[]models.Answer, error) {
 
 	return answers, err
 }
+
+func AnswerUpdate(answer *models.Answer) error {
+	db := db.Connect()
+	defer db.Close()
+
+	err := db.Save(&answer).Error
+	return err
+}

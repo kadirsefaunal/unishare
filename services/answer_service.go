@@ -27,3 +27,7 @@ func AnswerList(token string) (*[]models.Answer, error) {
 
 	return repositories.AnswerList(user.ID)
 }
+
+func AnswerUpdate(answer *models.Answer) error {
+	return repositories.AnswerUpdate(answer)
+}
