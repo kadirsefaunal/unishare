@@ -11,6 +11,6 @@ type Post struct {
 	Type    string `json:"type" gorm:"size:50"` // Announcement/Question
 	User    *User  `gorm:"foreignkey:UserID"`
 	UserID  uint   `json:"userId"`
-	Class   Class  `gorm:"foreignkey:ClassID"`
+	Class   *Class `gorm:"foreignkey:ClassID"`
 	ClassID uint   `json:"classId"`
 }

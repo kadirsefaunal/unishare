@@ -22,3 +22,14 @@ func PostCreate(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "{status: true}")
 }
+
+func PostGet(c echo.Context) error {
+	postID := c.Param("id")
+
+	post, err := services.PostGet(postID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, post)
+}

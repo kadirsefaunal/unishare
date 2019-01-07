@@ -14,3 +14,7 @@ func PostCreate(post *models.Post, token string) error {
 	post.User = user
 	return repositories.PostInsert(post)
 }
+
+func PostGet(postID string) (*models.Post, error) {
+	return repositories.PostGet(postID)
+}
