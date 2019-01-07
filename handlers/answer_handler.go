@@ -45,3 +45,23 @@ func AnswerList(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, answers)
 }
+
+func AnswerUpdate(c echo.Context) error {
+	answerID := c.Param("id")
+
+	answer, err := services.AnswerGet(answerID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	if err := c.Bind(answer); err != nil {
+		panic(err)
+	}
+
+	err = services.AnswerUpdate(answer)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}

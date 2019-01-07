@@ -37,4 +37,5 @@ func InitRoutes(e *echo.Echo) {
 	answer.POST("", handlers.AnswerCreate).Name = "create-answer"
 	answer.GET("/:id", handlers.AnswerGet).Name = "get-answer"
 	answer.GET("", handlers.AnswerList).Name = "list-answer"
+	answer.PUT("/:id", handlers.AnswerUpdate).Name = "update-answer"
 }
