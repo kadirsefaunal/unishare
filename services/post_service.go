@@ -22,3 +22,12 @@ func PostGet(postID string) (*models.Post, error) {
 func PostUpdate(post *models.Post) error {
 	return repositories.PostUpdate(post)
 }
+
+func PostDelete(postID string) error {
+	post, err := PostGet(postID)
+	if err != nil {
+		return err
+	}
+
+	return repositories.PostDelete(post)
+}

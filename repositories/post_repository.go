@@ -30,3 +30,11 @@ func PostUpdate(post *models.Post) error {
 	err := db.Save(&post).Error
 	return err
 }
+
+func PostDelete(post *models.Post) error {
+	db := db.Connect()
+	defer db.Close()
+
+	err := db.Delete(&post).Error
+	return err
+}
