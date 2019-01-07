@@ -34,3 +34,14 @@ func AnswerGet(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, answer)
 }
+
+func AnswerList(c echo.Context) error {
+	token := c.Request().Header.Get("access-token")
+
+	answers, err := services.AnswerList(token)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, answers)
+}

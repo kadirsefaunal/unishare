@@ -36,4 +36,5 @@ func InitRoutes(e *echo.Echo) {
 	answer := e.Group("/answer", middlewares.CheckToken)
 	answer.POST("", handlers.AnswerCreate).Name = "create-answer"
 	answer.GET("/:id", handlers.AnswerGet).Name = "get-answer"
+	answer.GET("", handlers.AnswerList).Name = "list-answer"
 }

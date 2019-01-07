@@ -22,3 +22,13 @@ func AnswerGet(answerID string) (*models.Answer, error) {
 
 	return answer, err
 }
+
+func AnswerList(userID uint) (*[]models.Answer, error) {
+	db := db.Connect()
+	defer db.Close()
+
+	answers := new([]models.Answer)
+	err := db.Find(&answers, "user_id = ?", userID).Error
+
+	return answers, err
+}
