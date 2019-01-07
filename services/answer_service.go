@@ -18,3 +18,12 @@ func AnswerInsert(answer *models.Answer, token string) error {
 func AnswerGet(answerID string) (*models.Answer, error) {
 	return repositories.AnswerGet(answerID)
 }
+
+func AnswerList(token string) (*[]models.Answer, error) {
+	user, err := GetCurrentUser(token)
+	if err != nil {
+		return nil, err
+	}
+
+	return repositories.AnswerList(user.ID)
+}
