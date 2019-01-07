@@ -28,4 +28,5 @@ func CreateTables() {
 	db.AutoMigrate(&models.School{})
 	db.AutoMigrate(&models.Class{})
 	db.AutoMigrate(&models.Post{})
+	db.AutoMigrate(&models.Answer{})
 }
