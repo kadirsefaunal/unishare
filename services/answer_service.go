@@ -31,3 +31,12 @@ func AnswerList(token string) (*[]models.Answer, error) {
 func AnswerUpdate(answer *models.Answer) error {
 	return repositories.AnswerUpdate(answer)
 }
+
+func AnswerDelete(answerID string) error {
+	answer, err := AnswerGet(answerID)
+	if err != nil {
+		return err
+	}
+
+	return repositories.AnswerDelete(answer)
+}

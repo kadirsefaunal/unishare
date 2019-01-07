@@ -65,3 +65,14 @@ func AnswerUpdate(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func AnswerDelete(c echo.Context) error {
+	answerID := c.Param("id")
+
+	err := services.AnswerDelete(answerID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}

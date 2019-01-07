@@ -40,3 +40,11 @@ func AnswerUpdate(answer *models.Answer) error {
 	err := db.Save(&answer).Error
 	return err
 }
+
+func AnswerDelete(answer *models.Answer) error {
+	db := db.Connect()
+	defer db.Close()
+
+	err := db.Delete(&answer).Error
+	return err
+}
