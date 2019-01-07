@@ -33,3 +33,23 @@ func PostGet(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, post)
 }
+
+func PostUpdate(c echo.Context) error {
+	postID := c.Param("id")
+
+	post, err := services.PostGet(postID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	if err := c.Bind(post); err != nil {
+		panic(err)
+	}
+
+	err = services.PostUpdate(post)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}

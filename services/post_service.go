@@ -18,3 +18,7 @@ func PostCreate(post *models.Post, token string) error {
 func PostGet(postID string) (*models.Post, error) {
 	return repositories.PostGet(postID)
 }
+
+func PostUpdate(post *models.Post) error {
+	return repositories.PostUpdate(post)
+}
