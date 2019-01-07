@@ -53,3 +53,14 @@ func PostUpdate(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func PostDelete(c echo.Context) error {
+	postID := c.Param("id")
+
+	err := services.PostDelete(postID)
+	if err != nil {
+		return c.JSON(http.StatusNotFound, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "{status: true}")
+}
