@@ -31,4 +31,5 @@ func InitRoutes(e *echo.Echo) {
 	post.GET("/:id", handlers.PostGet).Name = "get-post"
 	post.PUT("/:id", handlers.PostUpdate).Name = "update-post"
 	post.DELETE("/:id", handlers.PostDelete).Name = "delete-post"
+	post.GET("", handlers.PostList).Name = "list-post"
 }

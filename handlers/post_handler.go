@@ -64,3 +64,14 @@ func PostDelete(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "{status: true}")
 }
+
+func PostList(c echo.Context) error {
+	token := c.Request().Header.Get("access-token")
+
+	posts, err := services.PostList(token)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, posts)
+}

@@ -31,3 +31,12 @@ func PostDelete(postID string) error {
 
 	return repositories.PostDelete(post)
 }
+
+func PostList(token string) (*[]models.Post, error) {
+	user, err := GetCurrentUser(token)
+	if err != nil {
+		return nil, err
+	}
+
+	return repositories.PostList(user.ID)
+}
