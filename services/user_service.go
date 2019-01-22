@@ -10,7 +10,7 @@ import (
 func UserCreate(user *models.User) error {
 	user.Password = helpers.EncryptPassword(user.Password)
 
-	return repositories.UserInsert(user)
+	return repositories.Insert(user)
 }
 
 func UserLogin(loginUser *models.LoginUser) (string, error) {

@@ -12,15 +12,15 @@ func PostCreate(post *models.Post, token string) error {
 	}
 
 	post.User = user
-	return repositories.PostInsert(post)
+	return repositories.Insert(post)
 }
 
-func PostGet(postID string) (*models.Post, error) {
-	return repositories.PostGet(postID)
+func PostGet(postID string) (interface{}, error) {
+	return repositories.FindByID(postID, new(models.Post))
 }
 
-func PostUpdate(post *models.Post) error {
-	return repositories.PostUpdate(post)
+func PostUpdate(post interface{}) error {
+	return repositories.Update(post)
 }
 
 func PostDelete(postID string) error {
@@ -29,14 +29,14 @@ func PostDelete(postID string) error {
 		return err
 	}
 
-	return repositories.PostDelete(post)
+	return repositories.Delete(post)
 }
 
-func PostList(token string) (*[]models.Post, error) {
+func PostList(token string) (interface{}, error) {
 	user, err := GetCurrentUser(token)
 	if err != nil {
 		return nil, err
 	}
 
-	return repositories.PostList(user.ID)
+	return repositories.GetListByUserID(user.ID, new([]models.Post))
 }
