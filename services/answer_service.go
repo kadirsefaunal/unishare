@@ -12,24 +12,24 @@ func AnswerInsert(answer *models.Answer, token string) error {
 	}
 
 	answer.User = user
-	return repositories.AnswerInsert(answer)
+	return repositories.Insert(answer)
 }
 
-func AnswerGet(answerID string) (*models.Answer, error) {
-	return repositories.AnswerGet(answerID)
+func AnswerGet(answerID string) (interface{}, error) {
+	return repositories.FindByID(answerID, new(models.Answer))
 }
 
-func AnswerList(token string) (*[]models.Answer, error) {
+func AnswerList(token string) (interface{}, error) {
 	user, err := GetCurrentUser(token)
 	if err != nil {
 		return nil, err
 	}
 
-	return repositories.AnswerList(user.ID)
+	return repositories.GetListByUserID(user.ID, new([]models.Answer))
 }
 
-func AnswerUpdate(answer *models.Answer) error {
-	return repositories.AnswerUpdate(answer)
+func AnswerUpdate(answer interface{}) error {
+	return repositories.Update(answer)
 }
 
 func AnswerDelete(answerID string) error {
@@ -38,5 +38,5 @@ func AnswerDelete(answerID string) error {
 		return err
 	}
 
-	return repositories.AnswerDelete(answer)
+	return repositories.Delete(answer)
 }

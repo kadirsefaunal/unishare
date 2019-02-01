@@ -1,32 +1,27 @@
 package services
 
 import (
-	"strconv"
 	"unishare/models"
 	"unishare/repositories"
-
-	"github.com/jinzhu/gorm"
 )
 
 func SchoolCreate(school *models.School) error {
-	return repositories.SchoolInsert(school)
+	return repositories.Insert(school)
 }
 
 func SchoolDelete(id string) error {
-	schoolID, err := strconv.ParseUint(id, 10, 64)
+	school, err := SchoolGet(id)
 	if err != nil {
 		return err
 	}
 
-	school := models.School{Model: gorm.Model{ID: uint(schoolID)}}
-
-	return repositories.SchoolDelete(school)
+	return repositories.Delete(school)
 }
 
-func SchoolList() (*[]models.School, error) {
-	return repositories.SchoolList()
+func SchoolList() (interface{}, error) {
+	return repositories.GetList(new([]models.School))
 }
 
-func SchoolGet(id string) (*models.School, error) {
-	return repositories.SchoolGet(id)
+func SchoolGet(id string) (interface{}, error) {
+	return repositories.FindByID(id, new(models.School))
 }
