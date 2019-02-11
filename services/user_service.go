@@ -5,23 +5,29 @@ import (
 	"unishare/helpers"
 	"unishare/models"
 	"unishare/repositories"
+	"unishare/structs"
 )
 
-func UserCreate(user *models.User) error {
+func UserCreate(user *models.User) (*structs.Token, error) {
 	user.Password = helpers.EncryptPassword(user.Password)
 
-	return repositories.Insert(user)
+	err := repositories.Insert(user)
+	if err != nil {
+		return nil, err
+	}
+
+	return RedisSetUser(user), nil
 }
 
-func UserLogin(loginUser *models.LoginUser) (string, error) {
+func UserLogin(loginUser *models.LoginUser) (*structs.Token, error) {
 	user, err := repositories.UserGetByUserName(loginUser.UserName)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	err = helpers.CheckPassword(user.Password, loginUser.Password)
 	if err != nil {
-		return "", errors.New("password is not correct")
+		return nil, errors.New("Password is not correct")
 	}
 
 	token := RedisSetUser(user)
