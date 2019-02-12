@@ -27,7 +27,7 @@ func InitRoutes(e *echo.Echo) {
 	class.GET("/:id", handlers.ClassGet).Name = "get-class"
 	class.GET("", handlers.ClassListGet).Name = "get-class-list"
 
-	post := e.Group("/post", middlewares.CheckToken)
+	post := class.Group("/:classID/post", middlewares.CheckToken)
 	post.POST("", handlers.PostCreate).Name = "create-post"
 	post.GET("/:id", handlers.PostGet).Name = "get-post"
 	post.PUT("/:id", handlers.PostUpdate).Name = "update-post"
