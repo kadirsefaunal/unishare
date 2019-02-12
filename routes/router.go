@@ -34,7 +34,7 @@ func InitRoutes(e *echo.Echo) {
 	post.DELETE("/:id", handlers.PostDelete).Name = "delete-post"
 	post.GET("", handlers.PostList).Name = "list-post"
 
-	answer := e.Group("/answer", middlewares.CheckToken)
+	answer := post.Group("/:postID/answer", middlewares.CheckToken)
 	answer.POST("", handlers.AnswerCreate).Name = "create-answer"
 	answer.GET("/:id", handlers.AnswerGet).Name = "get-answer"
 	answer.GET("", handlers.AnswerList).Name = "list-answer"
