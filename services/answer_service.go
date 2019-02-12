@@ -43,7 +43,7 @@ func AnswerUpdate(answer interface{}) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (answer.(models.Answer)).ID
+	info.ID = (answer.(*models.Answer)).ID
 	info.Status = "updated"
 
 	return info, nil
@@ -61,7 +61,7 @@ func AnswerDelete(answerID string) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (answer.(models.Answer)).ID
+	info.ID = helpers.StringToUint(answerID)
 	info.Status = "deleted"
 
 	return info, nil

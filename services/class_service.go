@@ -34,7 +34,7 @@ func ClassDelete(id string) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (class.(models.Class)).ID
+	info.ID = helpers.StringToUint(id)
 	info.Status = "deleted"
 
 	return info, nil
@@ -51,7 +51,7 @@ func ClassUpdate(class interface{}) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (class.(models.Class)).ID
+	info.ID = (class.(*models.Class)).ID
 	info.Status = "updated"
 
 	return info, nil

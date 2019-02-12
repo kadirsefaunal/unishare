@@ -39,7 +39,7 @@ func PostUpdate(post interface{}) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (post.(models.Post)).ID
+	info.ID = (post.(*models.Post)).ID
 	info.Status = "updated"
 
 	return info, err
@@ -57,7 +57,7 @@ func PostDelete(postID string) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (post.(models.Post)).ID
+	info.ID = helpers.StringToUint(postID)
 	info.Status = "deleted"
 
 	return info, nil

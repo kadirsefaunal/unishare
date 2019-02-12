@@ -59,7 +59,7 @@ func AnswerUpdate(c echo.Context) error {
 		panic(err)
 	}
 
-	info, err = services.AnswerUpdate(answer)
+	info, err := services.AnswerUpdate(answer)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}

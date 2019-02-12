@@ -1,6 +1,7 @@
 package services
 
 import (
+	"unishare/helpers"
 	"unishare/models"
 	"unishare/repositories"
 	"unishare/structs"
@@ -31,7 +32,7 @@ func SchoolDelete(id string) (*structs.Info, error) {
 	}
 
 	info := new(structs.Info)
-	info.ID = (school.(models.School)).ID
+	info.ID = helpers.StringToUint(id)
 	info.Status = "deleted"
 
 	return info, nil
