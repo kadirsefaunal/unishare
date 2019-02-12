@@ -15,23 +15,23 @@ func SchoolCreate(c echo.Context) error {
 		panic(err)
 	}
 
-	err := services.SchoolCreate(school)
+	info, err := services.SchoolCreate(school)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, "{status: true}")
+	return c.JSON(http.StatusCreated, info)
 }
 
 func SchoolDelete(c echo.Context) error {
 	schoolID := c.Param("id")
 
-	err := services.SchoolDelete(schoolID)
+	info, err := services.SchoolDelete(schoolID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func SchoolList(c echo.Context) error {

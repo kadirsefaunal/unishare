@@ -7,10 +7,14 @@ import (
 	"unishare/helpers"
 	"unishare/models"
 	"unishare/storages"
+	"unishare/structs"
 )
 
-func RedisSetUser(user *models.User) string {
-	token := helpers.CreateTokenByUserName(user.UserName)
+func RedisSetUser(user *models.User) *structs.Token {
+	token := new(structs.Token)
+	token.UserID = user.ID
+	token.UserName = user.UserName
+	token.AccessToken = helpers.CreateTokenByUserName(user.UserName)
 
 	jsonUser, err := json.Marshal(user)
 	if err != nil {
@@ -18,7 +22,7 @@ func RedisSetUser(user *models.User) string {
 	}
 
 	client := storages.GetRedisClient()
-	client.Set(token, jsonUser, time.Hour)
+	client.Set(token.AccessToken, jsonUser, time.Hour)
 
 	return token
 }

@@ -1,21 +1,41 @@
 package services
 
 import (
+	"unishare/helpers"
 	"unishare/models"
 	"unishare/repositories"
+	"unishare/structs"
 )
 
-func SchoolCreate(school *models.School) error {
-	return repositories.Insert(school)
-}
-
-func SchoolDelete(id string) error {
-	school, err := SchoolGet(id)
+func SchoolCreate(school *models.School) (*structs.Info, error) {
+	err := repositories.Insert(school)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return repositories.Delete(school)
+	info := new(structs.Info)
+	info.ID = school.ID
+	info.Status = "created"
+
+	return info, nil
+}
+
+func SchoolDelete(id string) (*structs.Info, error) {
+	school, err := SchoolGet(id)
+	if err != nil {
+		return nil, err
+	}
+
+	err = repositories.Delete(school)
+	if err != nil {
+		return nil, err
+	}
+
+	info := new(structs.Info)
+	info.ID = helpers.StringToUint(id)
+	info.Status = "deleted"
+
+	return info, nil
 }
 
 func SchoolList() (interface{}, error) {

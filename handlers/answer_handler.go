@@ -9,19 +9,20 @@ import (
 )
 
 func AnswerCreate(c echo.Context) error {
+	postID := c.Param("postID")
 	token := c.Request().Header.Get("access-token")
-	answer := new(models.Answer)
 
+	answer := new(models.Answer)
 	if err := c.Bind(answer); err != nil {
 		panic(err)
 	}
 
-	err := services.AnswerInsert(answer, token)
+	info, err := services.AnswerInsert(answer, token, postID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, "{status: true}")
+	return c.JSON(http.StatusCreated, info)
 }
 
 func AnswerGet(c echo.Context) error {
@@ -36,9 +37,9 @@ func AnswerGet(c echo.Context) error {
 }
 
 func AnswerList(c echo.Context) error {
-	token := c.Request().Header.Get("access-token")
+	questionID := c.Param("postID")
 
-	answers, err := services.AnswerList(token)
+	answers, err := services.AnswerList(questionID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -58,21 +59,21 @@ func AnswerUpdate(c echo.Context) error {
 		panic(err)
 	}
 
-	err = services.AnswerUpdate(answer)
+	info, err := services.AnswerUpdate(answer)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func AnswerDelete(c echo.Context) error {
 	answerID := c.Param("id")
 
-	err := services.AnswerDelete(answerID)
+	info, err := services.AnswerDelete(answerID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
