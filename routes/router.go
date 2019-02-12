@@ -20,20 +20,21 @@ func InitRoutes(e *echo.Echo) {
 	school.GET("", handlers.SchoolList).Name = "list-school"
 	school.GET("/:id", handlers.SchoolGet).Name = "get-school"
 
-	class := e.Group("/class", middlewares.CheckToken)
+	class := school.Group("/:schoolID/class", middlewares.CheckToken)
 	class.POST("", handlers.ClassCreate).Name = "create-class"
 	class.DELETE("/:id", handlers.ClassDelete).Name = "delete-class"
 	class.PUT("/:id", handlers.ClassUpdate).Name = "update-class"
 	class.GET("/:id", handlers.ClassGet).Name = "get-class"
+	class.GET("", handlers.ClassListGet).Name = "get-class-list"
 
-	post := e.Group("/post", middlewares.CheckToken)
+	post := class.Group("/:classID/post", middlewares.CheckToken)
 	post.POST("", handlers.PostCreate).Name = "create-post"
 	post.GET("/:id", handlers.PostGet).Name = "get-post"
 	post.PUT("/:id", handlers.PostUpdate).Name = "update-post"
 	post.DELETE("/:id", handlers.PostDelete).Name = "delete-post"
 	post.GET("", handlers.PostList).Name = "list-post"
 
-	answer := e.Group("/answer", middlewares.CheckToken)
+	answer := post.Group("/:postID/answer", middlewares.CheckToken)
 	answer.POST("", handlers.AnswerCreate).Name = "create-answer"
 	answer.GET("/:id", handlers.AnswerGet).Name = "get-answer"
 	answer.GET("", handlers.AnswerList).Name = "list-answer"

@@ -15,12 +15,12 @@ func UserCreate(c echo.Context) error {
 		panic(err)
 	}
 
-	err := services.UserCreate(user)
+	token, err := services.UserCreate(user)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, "{status: true}")
+	return c.JSON(http.StatusCreated, token)
 }
 
 func UserLogin(c echo.Context) error {

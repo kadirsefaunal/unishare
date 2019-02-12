@@ -9,28 +9,30 @@ import (
 )
 
 func ClassCreate(c echo.Context) error {
+	schoolID := c.Param("schoolID")
+
 	class := new(models.Class)
 	if err := c.Bind(&class); err != nil {
 		panic(err)
 	}
 
-	err := services.ClassCreate(class)
+	info, err := services.ClassCreate(schoolID, class)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, "{status: true}")
+	return c.JSON(http.StatusCreated, info)
 }
 
 func ClassDelete(c echo.Context) error {
 	classID := c.Param("id")
 
-	err := services.ClassDelete(classID)
+	info, err := services.ClassDelete(classID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func ClassUpdate(c echo.Context) error {
@@ -45,12 +47,12 @@ func ClassUpdate(c echo.Context) error {
 		panic(err)
 	}
 
-	err = services.ClassUpdate(class)
+	info, err := services.ClassUpdate(class)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func ClassGet(c echo.Context) error {
@@ -62,4 +64,15 @@ func ClassGet(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, class)
+}
+
+func ClassListGet(c echo.Context) error {
+	schoolID := c.Param("schoolID")
+
+	classes, err := services.ClassList(schoolID)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, classes)
 }

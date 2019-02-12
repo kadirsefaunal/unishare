@@ -9,18 +9,20 @@ import (
 )
 
 func PostCreate(c echo.Context) error {
+	classID := c.Param("classID")
 	token := c.Request().Header.Get("access-token")
+
 	post := new(models.Post)
 	if err := c.Bind(&post); err != nil {
 		panic(err)
 	}
 
-	err := services.PostCreate(post, token)
+	info, err := services.PostCreate(post, token, classID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, "{status: true}")
+	return c.JSON(http.StatusCreated, info)
 }
 
 func PostGet(c echo.Context) error {
@@ -46,29 +48,29 @@ func PostUpdate(c echo.Context) error {
 		panic(err)
 	}
 
-	err = services.PostUpdate(post)
+	info, err := services.PostUpdate(post)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func PostDelete(c echo.Context) error {
 	postID := c.Param("id")
 
-	err := services.PostDelete(postID)
+	info, err := services.PostDelete(postID)
 	if err != nil {
 		return c.JSON(http.StatusNotFound, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, "{status: true}")
+	return c.JSON(http.StatusOK, info)
 }
 
 func PostList(c echo.Context) error {
-	token := c.Request().Header.Get("access-token")
+	classID := c.Param("classID")
 
-	posts, err := services.PostList(token)
+	posts, err := services.PostList(classID)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
